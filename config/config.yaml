@@ -1,0 +1,5 @@
+data:
+  dataset_url : "./inputs/final/Medications.txt"
+
+models:
+  model_id: "EleutherAI/gpt-neox-20b"
