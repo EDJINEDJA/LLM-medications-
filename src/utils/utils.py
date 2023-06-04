@@ -10,12 +10,20 @@ class Utils():
         self.config = config
 
     def load_datasets(self):
-        data = load_dataset('text' , data_files = self.config["data"]["dataset_url"])
+        with open(self.config["data"]["dataset_url"], 'r') as file:
+            lines = file.readlines()
+
+        # Supprimer les lignes vides
+        lines = [line for line in lines if line.strip() != '']
+
+        with open(self.config["data"]["clean_dataset_url"], 'w') as file:
+            file.writelines(lines)
+        data = load_dataset('text' , data_files = self.config["data"]["clean_dataset_url"])
         return data
 
     def tokenization(self, tokenizer):
         data = self.load_datasets()
-        data = data.map(lambda samples: tokenizer(samples["quote"]), batched=True)
+        data = data.map(lambda samples: tokenizer(samples["text"]), batched=True)
 
         return data
     
