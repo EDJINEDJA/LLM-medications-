@@ -26,6 +26,5 @@ def trainer(data , model , tokenizer, config):
     trainer.train()
     model_to_save = trainer.model.module if hasattr(trainer.model, 'module') else trainer.model  # Take care of distributed/parallel training
     model_to_save.save_pretrained("./weights")
-    if not os.path.exists("./weights_"):
-        model.save_pretrained("./weights_/llm")
-        tokenizer.save_pretrained("./weights_/llm")
+
+    model.push_to_hub(config["hf_repo"])
