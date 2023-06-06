@@ -20,7 +20,7 @@ push:
 setup:
 	pipenv install 
 	pipenv shell
-
-
+train:
+	python trainer.py --config config/config.yaml
 run:
 	python app.py --config config/config.yaml
